@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TreeStore.Models
 {
-    public class Campaign
+    public class Campaign:BaseEntity
     {
         public string Name { get; set; }
         public string Description { get; set; }
