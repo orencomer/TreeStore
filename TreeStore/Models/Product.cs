@@ -15,5 +15,6 @@ namespace TreeStore.Models
         public string ImagePath { get; set; }
         public virtual Campaign Campaign { get; set; }
         public long? CampaignId { get; set; }
+        public virtual Category Category { get; set; }
     }
 }

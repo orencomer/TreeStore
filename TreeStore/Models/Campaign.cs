@@ -13,5 +13,7 @@ namespace TreeStore.Models
         public DateTime StartedDate { get; set; }
         public DateTime EndDate { get; set; }
         public string ImagePath { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
     }
 }
