@@ -7,8 +7,10 @@ namespace TreeStore.Models
 {
     public class Category
     {
-        string name;
-        string description;
-      
+        public string name { get; set; }
+        public string description { get; set; }
+        public virtual Campaign Campaing { get; set; }
+        public long CampaingId { get; set; }
+        
     }
 }
