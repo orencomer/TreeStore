@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TreeStore.Models.AccountViewModels
 {
-    public class LoginViewModel
+    public class LoginViewModel:BaseEntity
     {
         [Required]
         [EmailAddress]
@@ -18,5 +18,8 @@ namespace TreeStore.Models.AccountViewModels
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+        public string Address { get; set; }
+        public string Phone { get; set; }
+        public string Logo { get; set; }
     }
 }

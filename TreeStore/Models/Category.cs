@@ -8,9 +8,8 @@ namespace TreeStore.Models
 {
     public class Category:BaseEntity
     {
-        public string Name { get; set; }
         public string Description { get; set; }
-        public long? CampaingId { get; set; }
-        public virtual Campaign Campaing { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<Campaign> Campaigns { get; set; }
     }
 }
