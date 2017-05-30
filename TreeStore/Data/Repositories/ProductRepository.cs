@@ -31,7 +31,7 @@ namespace TreeStore.Data.Repositories
                         dDate = DateTime.Parse(sSearch);
                         dateParsed = true;
                     }
-                    query = query.Where(p => p.Name.Contains(sSearch) || p.Category.Name.Contains(sSearch) || p.Campaign.Name.Contains(sSearch));
+                    query = query.Where(p => p.Name.Contains(sSearch) || p.Category.Name.Contains(sSearch)/* || p.Campaign.Name.Contains(sSearch)*/);
                 }
             }
             var allProduct = query;
@@ -46,7 +46,7 @@ namespace TreeStore.Data.Repositories
                         filteredProducts = allProduct.OrderBy(c => c.Name);
                         break;
                     case 1:
-                        filteredProducts = allProduct.OrderBy(c => c.Campaign.Name);
+                        //filteredProducts = allProduct.OrderBy(c => c.ProductCampaign.
                         break;
                     case 2:
                         filteredProducts = allProduct.OrderBy(c => c.Category.Name);
@@ -64,7 +64,7 @@ namespace TreeStore.Data.Repositories
                         filteredProducts = allProduct.OrderByDescending(c => c.Name);
                         break;
                     case 1:
-                        filteredProducts = allProduct.OrderByDescending(c => c.Campaign.Name);
+                        //filteredProducts = allProduct.OrderByDescending(c => c.ProductCampaign.Where(pc => pc.ProductId == c.Id).Ca
                         break;
                     case 2:
                         filteredProducts = allProduct.OrderByDescending(c => c.Category.Name);
