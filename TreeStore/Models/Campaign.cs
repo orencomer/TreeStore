@@ -13,7 +13,7 @@ namespace TreeStore.Models
         public DateTime EndDate { get; set; }
         public string ImagePath { get; set; }
         public bool IsActive { get; set; }
-        public virtual ICollection<Product> Products { get; set; }
-        public virtual ICollection<Category> Categories { get; set; }
+        public virtual ICollection<ProductCampaign> ProductCampaign { get; set; }
+        public virtual ICollection<CategoryCampaign> CategoryCampaign { get; set; }
     }
 }

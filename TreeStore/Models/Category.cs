@@ -10,6 +10,6 @@ namespace TreeStore.Models
     {
         public string Description { get; set; }
         public virtual ICollection<Product> Products { get; set; }
-        public virtual ICollection<Campaign> Campaigns { get; set; }
+        public virtual ICollection<CategoryCampaign> CategoryCampaign { get; set; }
     }
 }

@@ -12,8 +12,8 @@ namespace TreeStore.Models
         public decimal Price { get; set; }
         public decimal DiscountPrice { get; set; }
         public string ImagePath { get; set; }
-        public virtual Campaign Campaign { get; set; }
-        public long? CampaignId { get; set; }
+        public virtual ICollection<ProductCampaign> ProductCampaign { get; set; }
+        
         public virtual Category Category { get; set; }
         public bool IsActive { get; set; }
         public string CompanyLink { get; set; }
