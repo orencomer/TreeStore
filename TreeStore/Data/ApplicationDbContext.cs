@@ -12,6 +12,10 @@ namespace TreeStore.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<ProductCampaign> ProductCampaigns { get; set; }
+        public DbSet<CategoryCampaign> CategoryCampaigns { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
