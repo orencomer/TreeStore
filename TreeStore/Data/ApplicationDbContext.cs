@@ -15,6 +15,7 @@ namespace TreeStore.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductCampaign> ProductCampaigns { get; set; }
         public DbSet<CategoryCampaign> CategoryCampaigns { get; set; }
+        public DbSet<Campaign> Campaigns { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
