@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using TreeStore.Data;
 
-namespace TreeStore.Data.Migrations
+namespace TreeStore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170531123544_AllMigration")]
+    partial class AllMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -210,7 +211,7 @@ namespace TreeStore.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Campaigns");
+                    b.ToTable("Campaign");
                 });
 
             modelBuilder.Entity("TreeStore.Models.Category", b =>
@@ -256,6 +257,42 @@ namespace TreeStore.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("CategoryCampaigns");
+                });
+
+            modelBuilder.Entity("TreeStore.Models.Entities.Setting", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("About");
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("Fax");
+
+                    b.Property<string>("Mail");
+
+                    b.Property<string>("MembershipAgreement");
+
+                    b.Property<string>("Phone");
+
+                    b.Property<string>("PrivacyPolicy");
+
+                    b.Property<string>("SeoDescription");
+
+                    b.Property<string>("SeoKeywords");
+
+                    b.Property<string>("SeoTitle");
+
+                    b.Property<string>("TermsOfUse");
+
+                    b.Property<DateTime>("UpdateDate");
+
+                    b.Property<string>("WelcomeText");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Setting");
                 });
 
             modelBuilder.Entity("TreeStore.Models.Product", b =>

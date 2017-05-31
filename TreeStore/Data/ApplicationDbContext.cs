@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TreeStore.Models;
 using TreeStore.Models.EntityBuilders;
+using TreeStore.Models.Entities;
 
 namespace TreeStore.Data
 {
@@ -16,6 +17,8 @@ namespace TreeStore.Data
         public DbSet<ProductCampaign> ProductCampaigns { get; set; }
         public DbSet<CategoryCampaign> CategoryCampaigns { get; set; }
         public DbSet<Campaign> Campaigns { get; set; }
+        public DbSet<Setting> Settings { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -36,5 +39,7 @@ namespace TreeStore.Data
         }
         
         public DbSet<TreeStore.Models.Campaign> Campaign { get; set; }
+        
+        public DbSet<TreeStore.Models.Entities.Setting> Setting { get; set; }
     }
 }
