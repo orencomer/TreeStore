@@ -16,7 +16,7 @@ namespace TreeStore.Models.EntityBuilders
                 .WithMany(c => c.ProductCampaign)
                 .HasForeignKey(pc => pc.CampaignId);
             entityBuilder.HasOne(pc => pc.Product)
-                .WithMany(p => p.Campaign.ProductCampaign) // p.ProductCampaign idi p.Campaign.ProductCampaign haline getirildi.
+                .WithMany(p => p.ProductCampaign)
                 .HasForeignKey(pc => pc.ProductId);
 
         }
