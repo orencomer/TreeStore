@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace TreeStore.Migrations
 {
-    public partial class AllMigration : Migration
+    public partial class AllMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,6 +15,7 @@ namespace TreeStore.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
+                    Discriminator = table.Column<string>(nullable: false),
                     Name = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(maxLength: 256, nullable: true)
                 },
@@ -44,7 +45,10 @@ namespace TreeStore.Migrations
                     Id = table.Column<string>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     Address = table.Column<string>(nullable: true),
+                    CompanyName = table.Column<string>(nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
                     Fax = table.Column<string>(nullable: true),
@@ -59,6 +63,8 @@ namespace TreeStore.Migrations
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
                     SecurityStamp = table.Column<string>(nullable: true),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    UpdatedBy = table.Column<string>(nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: false),
                     UserName = table.Column<string>(maxLength: 256, nullable: true)
                 },
                 constraints: table =>
@@ -78,7 +84,7 @@ namespace TreeStore.Migrations
                     EndDate = table.Column<DateTime>(nullable: false),
                     ImagePath = table.Column<string>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 200, nullable: false),
                     Slogan = table.Column<string>(nullable: true),
                     StartedDate = table.Column<DateTime>(nullable: false),
                     UpdateBy = table.Column<string>(nullable: true),
@@ -90,7 +96,23 @@ namespace TreeStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Setting",
+                name: "Contacts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Email = table.Column<string>(maxLength: 200, nullable: false),
+                    FullName = table.Column<string>(maxLength: 200, nullable: false),
+                    Message = table.Column<string>(nullable: false),
+                    Phone = table.Column<string>(maxLength: 200, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contacts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Settings",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -111,7 +133,7 @@ namespace TreeStore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Setting", x => x.Id);
+                    table.PrimaryKey("PK_Settings", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -201,6 +223,31 @@ namespace TreeStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CategoryCampaigns",
+                columns: table => new
+                {
+                    CampaignId = table.Column<long>(nullable: false),
+                    CategoryId = table.Column<long>(nullable: false),
+                    ApplicationUserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CategoryCampaigns", x => new { x.CampaignId, x.CategoryId });
+                    table.ForeignKey(
+                        name: "FK_CategoryCampaigns_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CategoryCampaigns_Campaign_CampaignId",
+                        column: x => x.CampaignId,
+                        principalTable: "Campaign",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
                 {
@@ -227,36 +274,12 @@ namespace TreeStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CategoryCampaigns",
-                columns: table => new
-                {
-                    CampaignId = table.Column<long>(nullable: false),
-                    CategoryId = table.Column<long>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CategoryCampaigns", x => new { x.CampaignId, x.CategoryId });
-                    table.ForeignKey(
-                        name: "FK_CategoryCampaigns_Campaign_CampaignId",
-                        column: x => x.CampaignId,
-                        principalTable: "Campaign",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CategoryCampaigns_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CategoryId = table.Column<long>(nullable: false),
+                    CategoryId = table.Column<long>(nullable: true),
                     CompanyLink = table.Column<string>(nullable: true),
                     CreateDate = table.Column<DateTime>(nullable: false),
                     CreatedBy = table.Column<string>(nullable: true),
@@ -277,7 +300,7 @@ namespace TreeStore.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -352,6 +375,11 @@ namespace TreeStore.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CategoryCampaigns_ApplicationUserId",
+                table: "CategoryCampaigns",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CategoryCampaigns_CategoryId",
                 table: "CategoryCampaigns",
                 column: "CategoryId");
@@ -365,6 +393,14 @@ namespace TreeStore.Migrations
                 name: "IX_ProductCampaigns_ProductId",
                 table: "ProductCampaigns",
                 column: "ProductId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_CategoryCampaigns_Categories_CategoryId",
+                table: "CategoryCampaigns",
+                column: "CategoryId",
+                principalTable: "Categories",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Categories_Products_ProductId",
@@ -404,7 +440,10 @@ namespace TreeStore.Migrations
                 name: "CategoryCampaigns");
 
             migrationBuilder.DropTable(
-                name: "Setting");
+                name: "Contacts");
+
+            migrationBuilder.DropTable(
+                name: "Settings");
 
             migrationBuilder.DropTable(
                 name: "ProductCampaigns");

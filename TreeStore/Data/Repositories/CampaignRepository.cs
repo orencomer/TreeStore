@@ -17,7 +17,7 @@ namespace TreeStore.Data.Repositories
         {
             string localSearch = search.Trim();
             var searchWords = localSearch.Split(' ');
-            var query = this.DbContext.Campaigns.AsQueryable();
+            var query = this.DbContext.Campaign.AsQueryable();
 
             foreach(string sSearch in searchWords)
             {

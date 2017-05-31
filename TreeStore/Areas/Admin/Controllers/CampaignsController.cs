@@ -23,7 +23,7 @@ namespace TreeStore.Areas.Admin.Controllers
         // GET: Admin/Campaigns
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Campaigns.ToListAsync());
+            return View(await _context.Campaign.ToListAsync());
         }
 
         // GET: Admin/Campaigns/Details/5
@@ -34,7 +34,7 @@ namespace TreeStore.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var campaign = await _context.Campaigns
+            var campaign = await _context.Campaign
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (campaign == null)
             {
@@ -83,7 +83,7 @@ namespace TreeStore.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var campaign = await _context.Campaigns.SingleOrDefaultAsync(m => m.Id == id);
+            var campaign = await _context.Campaign.SingleOrDefaultAsync(m => m.Id == id);
             if (campaign == null)
             {
                 return NotFound();
@@ -138,7 +138,7 @@ namespace TreeStore.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var campaign = await _context.Campaigns
+            var campaign = await _context.Campaign
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (campaign == null)
             {
@@ -153,15 +153,15 @@ namespace TreeStore.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var campaign = await _context.Campaigns.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Campaigns.Remove(campaign);
+            var campaign = await _context.Campaign.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Campaign.Remove(campaign);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
         private bool CampaignExists(long id)
         {
-            return _context.Campaigns.Any(e => e.Id == id);
+            return _context.Campaign.Any(e => e.Id == id);
         }
     }
 }

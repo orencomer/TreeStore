@@ -16,9 +16,11 @@ namespace TreeStore.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductCampaign> ProductCampaigns { get; set; }
         public DbSet<CategoryCampaign> CategoryCampaigns { get; set; }
-        public DbSet<Campaign> Campaigns { get; set; }
+        public DbSet<Campaign> Campaign { get; set; }
         public DbSet<Setting> Settings { get; set; }
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<ApplicationRole> ApplicationRole { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -37,14 +39,6 @@ namespace TreeStore.Data
             new ProductCampaignBuilder(builder.Entity<ProductCampaign>());
             new ProductBuilder(builder.Entity<Product>());
             new CampaignBuilder(builder.Entity<Campaign>());
-        }
-        
-        public DbSet<TreeStore.Models.Campaign> Campaign { get; set; }
-        
-        public DbSet<TreeStore.Models.ApplicationUser> ApplicationUser { get; set; }
-        
-        public DbSet<TreeStore.Models.Entities.ApplicationRole> ApplicationRole { get; set; }
-        
-        
+        } 
     }
 }

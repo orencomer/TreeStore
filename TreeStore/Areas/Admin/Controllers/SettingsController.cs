@@ -24,7 +24,7 @@ namespace TreeStore.Areas.Admin.Controllers
         public IActionResult Index()
         {
             Setting setting;
-            setting = context.Setting.FirstOrDefault();
+            setting = context.Settings.FirstOrDefault();
             if (setting == null)
             {
                 setting = new Setting();
@@ -34,11 +34,11 @@ namespace TreeStore.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Index(Setting setting)
         {
-            Setting s = context.Setting.FirstOrDefault();
+            Setting s = context.Settings.FirstOrDefault();
             if (ModelState.IsValid)
             {
                 
-                if (context.Setting.Any())
+                if (context.Settings.Any())
                 {
                    
                     s.WelcomeText = setting.WelcomeText;
@@ -58,7 +58,7 @@ namespace TreeStore.Areas.Admin.Controllers
                 }
                 else
                 {
-                    context.Setting.Add(setting);
+                    context.Settings.Add(setting);
                     context.SaveChanges();
                     ViewBag.Message = "Ayarlar baþarýyla kaydedildi.";
                 }

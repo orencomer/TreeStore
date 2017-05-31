@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using TreeStore.Data;
 
-namespace TreeStore.Data.Migrations
+namespace TreeStore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170531142738_applicationrole")]
-    partial class applicationrole
+    [Migration("20170531221711_AllMigrations")]
+    partial class AllMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -214,7 +214,9 @@ namespace TreeStore.Data.Migrations
 
                     b.Property<bool>("IsActive");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<string>("Slogan");
 
@@ -263,9 +265,9 @@ namespace TreeStore.Data.Migrations
 
             modelBuilder.Entity("TreeStore.Models.CategoryCampaign", b =>
                 {
-                    b.Property<long>("CampaignId");
+                    b.Property<long?>("CampaignId");
 
-                    b.Property<long>("CategoryId");
+                    b.Property<long?>("CategoryId");
 
                     b.Property<string>("ApplicationUserId");
 
@@ -278,12 +280,73 @@ namespace TreeStore.Data.Migrations
                     b.ToTable("CategoryCampaigns");
                 });
 
+            modelBuilder.Entity("TreeStore.Models.Entities.Contact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(200);
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(200);
+
+                    b.Property<string>("Message")
+                        .IsRequired();
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(200);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Contacts");
+                });
+
+            modelBuilder.Entity("TreeStore.Models.Entities.Setting", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("About");
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("Fax");
+
+                    b.Property<string>("Mail");
+
+                    b.Property<string>("MembershipAgreement");
+
+                    b.Property<string>("Phone");
+
+                    b.Property<string>("PrivacyPolicy");
+
+                    b.Property<string>("SeoDescription");
+
+                    b.Property<string>("SeoKeywords");
+
+                    b.Property<string>("SeoTitle");
+
+                    b.Property<string>("TermsOfUse");
+
+                    b.Property<DateTime>("UpdateDate");
+
+                    b.Property<string>("WelcomeText");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Settings");
+                });
+
             modelBuilder.Entity("TreeStore.Models.Product", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<long>("CategoryId");
+                    b.Property<long?>("CategoryId");
 
                     b.Property<string>("CompanyLink");
 
@@ -408,8 +471,7 @@ namespace TreeStore.Data.Migrations
                 {
                     b.HasOne("TreeStore.Models.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("TreeStore.Models.ProductCampaign", b =>
