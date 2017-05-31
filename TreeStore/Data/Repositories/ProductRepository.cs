@@ -31,7 +31,9 @@ namespace TreeStore.Data.Repositories
                         dDate = DateTime.Parse(sSearch);
                         dateParsed = true;
                     }
-                    query = query.Where(p => p.Name.Contains(sSearch) || p.Category.Name.Contains(sSearch)/* || p.Campaign.Name.Contains(sSearch)*/);
+                    query = query.Where(p => p.Name.Contains(sSearch)/*Ürünün ismine göre arama*/ || 
+                    p.Category.Name.Contains(sSearch) /*Kategorinin ismine göre arama*/ || 
+                    p.Category.Campaign.Name.Contains(sSearch)/*Kampanyanın ismine göre arama*/);
                 }
             }
             var allProduct = query;
