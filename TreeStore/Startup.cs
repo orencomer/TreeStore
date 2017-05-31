@@ -74,6 +74,7 @@ namespace TreeStore
             app.UseStaticFiles();
 
             app.UseIdentity();
+            app.ApplicationServices.GetRequiredService<ApplicationDbContext>().Seed();
 
             // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
 
