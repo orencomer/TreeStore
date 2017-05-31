@@ -8,9 +8,10 @@ using TreeStore.Data;
 namespace TreeStore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170531140421_ProductAdded")]
+    partial class ProductAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -343,6 +344,50 @@ namespace TreeStore.Migrations
                     b.HasOne("TreeStore.Models.ApplicationUser")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TreeStore.Models.Category", b =>
+                {
+                    b.HasOne("TreeStore.Models.Campaign", "Campaign")
+                        .WithMany()
+                        .HasForeignKey("CampaignId");
+
+                    b.HasOne("TreeStore.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("TreeStore.Models.CategoryCampaign", b =>
+                {
+                    b.HasOne("TreeStore.Models.Campaign", "Campaign")
+                        .WithMany("CategoryCampaign")
+                        .HasForeignKey("CampaignId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TreeStore.Models.Category", "Category")
+                        .WithMany("CategoryCampaign")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TreeStore.Models.Product", b =>
+                {
+                    b.HasOne("TreeStore.Models.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId");
+                });
+
+            modelBuilder.Entity("TreeStore.Models.ProductCampaign", b =>
+                {
+                    b.HasOne("TreeStore.Models.Campaign", "Campaign")
+                        .WithMany("ProductCampaign")
+                        .HasForeignKey("CampaignId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TreeStore.Models.Product", "Product")
+                        .WithMany("ProductCampaign")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
         }
