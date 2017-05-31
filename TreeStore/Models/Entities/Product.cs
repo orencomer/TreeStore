@@ -15,7 +15,6 @@ namespace TreeStore.Models
         public bool IsActive { get; set; }
         public string CompanyLink { get; set; }
         public virtual ICollection<ProductCampaign> ProductCampaign { get; set; }
-
         public virtual Category Category { get; set; }
         public long CategoryId { get; set; }
     }
