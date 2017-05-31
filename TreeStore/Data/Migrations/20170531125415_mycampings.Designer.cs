@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using TreeStore.Data;
 
-namespace TreeStore.Migrations
+namespace TreeStore.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170531123544_AllMigration")]
-    partial class AllMigration
+    [Migration("20170531125415_mycampings")]
+    partial class mycampings
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,9 +25,6 @@ namespace TreeStore.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
                     b.Property<string>("Name")
                         .HasMaxLength(256);
 
@@ -41,8 +38,6 @@ namespace TreeStore.Migrations
                         .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
@@ -138,14 +133,8 @@ namespace TreeStore.Migrations
 
                     b.Property<string>("Address");
 
-                    b.Property<string>("CompanyName");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
-
-                    b.Property<string>("CreatedBy");
-
-                    b.Property<DateTime>("CreatedDate");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -177,10 +166,6 @@ namespace TreeStore.Migrations
                     b.Property<string>("SecurityStamp");
 
                     b.Property<bool>("TwoFactorEnabled");
-
-                    b.Property<string>("UpdatedBy");
-
-                    b.Property<DateTime>("UpdatedDate");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
@@ -267,51 +252,11 @@ namespace TreeStore.Migrations
 
                     b.Property<long>("CategoryId");
 
-                    b.Property<string>("ApplicationUserId");
-
                     b.HasKey("CampaignId", "CategoryId");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("CategoryId");
 
                     b.ToTable("CategoryCampaigns");
-                });
-
-            modelBuilder.Entity("TreeStore.Models.Entities.Setting", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("About");
-
-                    b.Property<string>("Address");
-
-                    b.Property<string>("Fax");
-
-                    b.Property<string>("Mail");
-
-                    b.Property<string>("MembershipAgreement");
-
-                    b.Property<string>("Phone");
-
-                    b.Property<string>("PrivacyPolicy");
-
-                    b.Property<string>("SeoDescription");
-
-                    b.Property<string>("SeoKeywords");
-
-                    b.Property<string>("SeoTitle");
-
-                    b.Property<string>("TermsOfUse");
-
-                    b.Property<DateTime>("UpdateDate");
-
-                    b.Property<string>("WelcomeText");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Setting");
                 });
 
             modelBuilder.Entity("TreeStore.Models.Product", b =>
@@ -365,16 +310,6 @@ namespace TreeStore.Migrations
                     b.ToTable("ProductCampaigns");
                 });
 
-            modelBuilder.Entity("TreeStore.Models.Entities.ApplicationRole", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole");
-
-
-                    b.ToTable("ApplicationRole");
-
-                    b.HasDiscriminator().HasValue("ApplicationRole");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
@@ -425,10 +360,6 @@ namespace TreeStore.Migrations
 
             modelBuilder.Entity("TreeStore.Models.CategoryCampaign", b =>
                 {
-                    b.HasOne("TreeStore.Models.ApplicationUser")
-                        .WithMany("CategoryCampaigns")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("TreeStore.Models.Campaign", "Campaign")
                         .WithMany("CategoryCampaign")
                         .HasForeignKey("CampaignId")

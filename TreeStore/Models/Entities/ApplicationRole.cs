@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TreeStore.Models.Entities
 {
-    public class ApplicationRole:IdentityRole<Guid>
+    public class ApplicationRole:IdentityRole
     {
     }
 }

@@ -40,6 +40,10 @@ namespace TreeStore.Data
         
         public DbSet<TreeStore.Models.Campaign> Campaign { get; set; }
         
-        public DbSet<TreeStore.Models.Entities.Setting> Setting { get; set; }
+        public DbSet<TreeStore.Models.ApplicationUser> ApplicationUser { get; set; }
+        
+        public DbSet<TreeStore.Models.Entities.ApplicationRole> ApplicationRole { get; set; }
+        
+        
     }
 }
