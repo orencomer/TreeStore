@@ -33,5 +33,7 @@ namespace TreeStore.Data
             new ProductCampaignBuilder(builder.Entity<ProductCampaign>());
             new ProductBuilder(builder.Entity<Product>());
         }
+        
+        public DbSet<TreeStore.Models.Campaign> Campaign { get; set; }
     }
 }
